@@ -134,11 +134,10 @@
       color: #333;
       transform: rotateY(180deg);
       padding: 30px;
-      /* CRITICAL: Enables scrolling for content overflow */
       overflow-y: auto; 
-      /* Ensures content (title, message, note) is spaced vertically */
       justify-content: space-between; 
       text-align: left;
+      scroll-behavior: smooth;
     }
 
     .back h2 {
@@ -155,12 +154,9 @@
       line-height: 1.5;
       color: #555;
       width: 100%;
-      /* Allows message to take up remaining height */
       flex-grow: 1; 
-      /* Ensures your line breaks are respected */
       white-space: pre-wrap;
       padding-right: 5px;
-      /* REMOVED: Removing max-height lets the content dictate height, forcing scroll on .back */
     }
 
     .closing-note {
@@ -170,6 +166,25 @@
       flex-shrink: 0;
       width: 100%;
       text-align: center;
+    }
+
+    /* --- Scrollbar Styling --- */
+    .back::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .back::-webkit-scrollbar-thumb {
+      background-color: #ff6b81;
+      border-radius: 4px;
+    }
+
+    .back::-webkit-scrollbar-thumb:hover {
+      background-color: #ff3b60;
+    }
+
+    .back::-webkit-scrollbar-track {
+      background: #ffeaf0;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -187,7 +202,6 @@
       ribbon.classList.add('ribbon');
       ribbon.style.left = Math.random() * 100 + 'vw';
       ribbon.style.animationDuration = (5 + Math.random() * 5) + 's';
-      // FIX: Used template literals (backticks) for correct URL interpolation
       ribbon.style.backgroundImage = url('${ribbonImages[Math.floor(Math.random() * ribbonImages.length)]}'); 
       ribbon.style.width = ribbon.style.height = 20 + Math.random() * 20 + 'px';
       document.body.appendChild(ribbon);
