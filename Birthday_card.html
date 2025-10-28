@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <style>
+    /* --- Background Styling --- */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffdee9 0%, #b5fffc 100%);
+      position: relative;
+    }
+
+    /* Add subtle background images (cakes, flowers, etc.) */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.imgur.com/dFQn1hA.png'); /* A pretty seamless cake/flower pattern */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    /* --- Falling Ribbons / Confetti Animation --- */
+    .ribbon {
+      position: absolute;
+      top: -50px;
+      width: 25px;
+      height: 25px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.9;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0.7;
+      }
+    }
+
+    /* --- Card Container Styling: Optimized for Mobile --- */
+    .card-container {
+      max-width: 400px;
+      width: 90%;
+      height: 500px;
+      perspective: 1000px;
+      z-index: 10; /* Ensure card stays above ribbons */
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.0s;
+    }
+
+    .card.open {
+      transform: rotateY(-180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .front {
+      background-color: #ff9fbe;
+      color: white;
+      z-index: 2;
+      font-weight: bold;
+      justify-content: space-around;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    .front-image {
+      width: 85%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 5px solid white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin: 10px 0;
+      align-self: center;
+    }
+
+    .front h1 {
+      font-size: 1.8em;
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .front p {
+      font-size: 1em;
+      margin-top: 0;
+    }
+
+    .back {
+      background-color: #ffffff;
+      color: #333;
+      transform: rotateY(180deg);
+      padding: 30px;
+      overflow-y: auto;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .back h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.8em;
+      text-align: center;
+      width: 100%;
+    }
+
+    .inside-message {
+      margin: 10px 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #555;
+      width: 100%;
+      flex-grow: 1;
+      white-space: pre-wrap;
+      padding-right: 5px;
+    }
+
+    .closing-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling ribbons (you can add more for a fuller effect) -->
+  <script>
+    const ribbonImages = [
+      'https://i.imgur.com/W9nWvJ3.png', // Ribbon 1
+      'https://i.imgur.com/XtX7b3n.png', // Ribbon 2
+      'https://i.imgur.com/d8AK0XY.png'  // Confetti
+    ];
+    
+    for (let i = 0; i < 20; i++) {
+      const ribbon = document.createElement('div');
+      ribbon.classList.add('ribbon');
+      ribbon.style.left = Math.random() * 100 + 'vw';
+      ribbon.style.animationDuration = (5 + Math.random() * 5) + 's';
+      ribbon.style.backgroundImage = url(${ribbonImages[Math.floor(Math.random() * ribbonImages.length)]});
+      ribbon.style.width = ribbon.style.height = 20 + Math.random() * 20 + 'px';
+      document.body.appendChild(ribbon);
+    }
+  </script>
+
+  <div class="card-container">
+    <div class="card" id="birthdayCard">
+      <div class="card-face front" onclick="toggleCard()">
+        <h1>Happy Birthday! 🎉</h1>
+        <img src="images/image.jpg" alt="Happy Birthday Cover Photo" class="front-image">
+        <p>Click to Open!</p>
+      </div>
+
+      <div class="card-face back" onclick="toggleCard()">
+        <h2>Happy Birthday!</h2>
+        <p class="inside-message">
+My Dearest Coco,
+
+Happy Birthday, beautiful ❤
+
+Today isn’t just another day, it’s your day. The day the world got brighter, kinder, and a whole lot more amazing just because you were born.
+
+I’m honestly so grateful you exist. You have this effortless way of making everything feel lighter — like one smile from you could fix a bad day, and one laugh from you could silence the world.
+
+If I could, I’d freeze this moment — just to keep celebrating you a little longer. You deserve all the happiness, peace, and love this world can give (and maybe a little extra from me 😉).
+
+So here’s to you — to your heart, your beauty, your warmth, and all the magic you bring to everyone lucky enough to know you.
+
+Happy Birthday, my favorite human 💫
+You’re one of a kind — and I’m so damn happy you were born.
+
+With all my love,
+Josh ❤
+        </p>
+        <p class="closing-note">Click anywhere to close it again!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleCard() {
+      const card = document.getElementById('birthdayCard');
+      card.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
